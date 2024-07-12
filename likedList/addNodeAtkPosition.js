@@ -1,6 +1,6 @@
-//? REMOVE NODE FROM END
+//? Add a node at specific position
 
-class Node{
+class Node {
     constructor(value){
         this.value = value
         this.next  = null
@@ -9,7 +9,7 @@ class Node{
 
 class LinkedList{
     constructor(){
-         this.head = null
+        this.head = null
     }
 
     append(value){
@@ -26,29 +26,33 @@ class LinkedList{
         }
     }
 
-    deleteEnd(){
-        if(this.head === null || this.head.next === null)  return 
+    findPosition(value,target){
 
-        let current  = this.head
-        
+        const newNode = new Node(value)
 
-        while(current.next.next !== null ){
-            current  = current.next
+        if (this.head.value === target) {
+            newNode.next = this.head
+            this.head = newNode
+            return
         }
 
-        current.next = null
+        let current = this.head
+        while(current.value !== target){
+            current = current.next
+        }
+        newNode.next = current.next
+        current.next = newNode
+
     }
 
     print(){
         let current = this.head
         while(current !== null){
             console.log(current.value);
-            current = current.next
+            current = current.next 
         }
     }
-   
 }
-
 
 const list=new LinkedList()
 list.append(1)
@@ -59,5 +63,6 @@ list.append(5)
 list.append(6)
 list.append(7)
 
-list.deleteEnd()
+list.findPosition(10,5)
+
 list.print()

@@ -1,20 +1,20 @@
-//? REMOVE NODE FROM END
+//? CONVERT AN ARRAY TO LINKED LIST 
 
-class Node{
+class Node {
     constructor(value){
         this.value = value
         this.next  = null
     }
 }
 
-class LinkedList{
+class LinkedList {
     constructor(){
-         this.head = null
+        this.head = null
     }
 
     append(value){
         const newNode = new Node(value)
-
+        
         if (this.head === null) {
             this.head = newNode
         }else{
@@ -25,20 +25,6 @@ class LinkedList{
             current.next = newNode
         }
     }
-
-    deleteEnd(){
-        if(this.head === null || this.head.next === null)  return 
-
-        let current  = this.head
-        
-
-        while(current.next.next !== null ){
-            current  = current.next
-        }
-
-        current.next = null
-    }
-
     print(){
         let current = this.head
         while(current !== null){
@@ -46,18 +32,16 @@ class LinkedList{
             current = current.next
         }
     }
-   
+
+    static fromArray(arr){
+        const link = new LinkedList()
+        for(let value of arr){
+            link.append(value)
+        }
+        return link
+    }
 }
 
-
-const list=new LinkedList()
-list.append(1)
-list.append(2)
-list.append(3)
-list.append(4)
-list.append(5)
-list.append(6)
-list.append(7)
-
-list.deleteEnd()
+const array = [10,20,300,40,50,60]
+const list = LinkedList.fromArray(array)
 list.print()
