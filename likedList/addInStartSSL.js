@@ -1,4 +1,4 @@
-
+//? ADD A NODE AT BEGINNING
 class Node{
     constructor(value){
         this.value = value;

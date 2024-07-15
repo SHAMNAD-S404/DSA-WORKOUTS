@@ -1,3 +1,4 @@
+//? DELETE A NODE FORM LINKED LIST 
 
 class Node{
     constructor(value){
@@ -88,3 +89,8 @@ list.deleteNode(2222)
 console.log(list.deleteNode(8585));
 
 list.printList()
+
+
+
+
+

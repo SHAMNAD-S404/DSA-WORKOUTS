@@ -18,7 +18,7 @@ function reverseNormal(str){
 
     if(str.length === 0 ) return 'empty string' ;
 
-    let arr = str.split('') //converting array to string
+    let arr = str.split('') //converting string to array
     let left = 0
     let right = arr.length -1;
 
