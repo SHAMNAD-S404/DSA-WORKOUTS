@@ -29,3 +29,29 @@ let array = [1,2,3,4,5,6,7,11,13]
 
 //CALLING FUNCTION PRINTING IS OUTPUT
 console.log( findPrime(array) );
+
+
+//************************************************************************************************************ */
+
+//?                              USING RECURSIVE METHOD
+
+
+function isPrime(num,divisor) {
+
+    if(num<2) {
+        return false
+    }
+
+    if(num===divisor) return true
+
+    if(num%divisor===0) {
+        return false
+    }
+
+    return isPrime(num,divisor+1)
+
+
+}
+
+
+console.log(isPrime(6,2));
