@@ -1,6 +1,7 @@
 //? Implement Bubble Sort to sort a singly linked list.
 //? Example: Input: 4->3->1->2,Output: 1->2->3->4
-//* HERE WE CHANGING NODE NOT VALUES
+
+//* HERE WE CHANGING NODES NOT VALUES
 
 class Node {
     constructor(value) {
