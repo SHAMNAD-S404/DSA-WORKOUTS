@@ -1,69 +1,75 @@
 
-
- class Node{
-    constructor(value){
-        this.value = value
-        this.next  = null
-    }
- }
-
- class Stack{
-    constructor(){
-        this.top = null
-        this.count = 0
+class HashTable {
+    constructor(size = 50){
+        this.table = new Array(size)
+        this.size  = size;
     }
 
-    isEmpty(){
-        return this.top === null
-    }
+    hash(key){
 
-    size(){
-        return this.count;
-    }
-
-    push(value){
-
-        const newNode = new Node(value)
-
-        if (this.top) {
-            newNode.next = this.top
+        let hash = 0;
+        for (const str of key) {
+            hash += str.charCodeAt(0)
         }
 
-        this.top = newNode
-        this.count++
+        return hash % this.size;
     }
 
-    pop(){
+    set(key,value){
 
-        if (this.isEmpty()) {
-            return 'empty stack'
+        const index = this.hash(key)
+        
+        if (!this.table[index]) {
+            this.table[index] = []
         }
 
-        const value = this.top.value
-        this.top = this.top.next
-        return value
+        this.table[index].push([key,value])
     }
 
-    printList(){
+    get(key){
 
-        if (this.isEmpty) {
-            return 'empty stack'
+        const index = this.hash(key)
+        const bucket = this.table[index]
+
+        if (bucket) {
+            for (const [k,v] of bucket) {
+                
+                if (k=== key) {
+                    return v;
+
+                }
+            }
         }
 
-        let current = this.top
-        while(current){
-            console.log(current.value);
-            current = current.next
-        }
+        return 'value not found'
     }
- }
 
- const stack = new Stack()
+    remove(key){
 
- stack.push(10)
- stack.push(11)
- stack.push(12)
+        const index = this.hash(key)
+        const bucket = this.table[index]
 
- console.log(stack.size());
- 
- console.log(stack.pop());
+        if (bucket) {
+            for(let i=0;i<bucket.length;i++){
+                if (bucket[i][0] === key) {
+                    bucket.splice(i,1)
+                    return true
+                }
+            }
+            
+        }
+
+        return false
+    }
+}
+
+const hash = new HashTable()
+
+hash.set('name','aswanth')
+hash.set('batch','bck183')
+
+console.log(hash.get('name'))
+
+hash.remove('name')
+
+console.log(hash.get('name'))

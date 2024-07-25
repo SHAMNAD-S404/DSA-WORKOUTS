@@ -70,6 +70,7 @@ for (let i = 0; i < 10; i++) {
     stack.push(i) 
 }
 
+stack.pop()
 stack.printList()
 
-console.log(stack.pop())
+
