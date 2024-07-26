@@ -1,3 +1,4 @@
+
 class HashTable{
     constructor(size = 50){
 
@@ -7,9 +8,8 @@ class HashTable{
 
     hash(key){
 
-        let hash = 0
-
-        for(let str of key){
+        let hash =0;
+        for (const str of key) {
             hash += str.charCodeAt(0)
         }
 
@@ -21,14 +21,13 @@ class HashTable{
         const index = this.hash(key)
 
         if (!this.table[index]) {
-            this.table[index] = []
+            this.table[index] =[]
         }
 
-        for(let i=0;i<this.table[index];i++){
+        for(let i=0;i<this.table[index].length;i++){
 
             if (this.table[index][i][0] === key) {
-
-                this.table[index][i][1] = value;
+                this.table[index][i][1] = value
                 return;
             }
         }
@@ -60,7 +59,7 @@ class HashTable{
         if (bucket) {
             
             for(let i=0;i<bucket.length;i++){
-                if (bucket[i][0] === key) {
+                if (bucket[i][0]===key) {
                     bucket.splice(i,1)
                     return true
                 }
@@ -68,13 +67,21 @@ class HashTable{
         }
 
         return false
-
     }
+
+    display(){
+        return this.table.forEach(item => console.log(item))
+    }
+
 }
 
 const list = new HashTable()
 
-list.set('name','shamnad')
-list.set('batch','bck183')
+list.set('name','shammi')
 
-console.log(list.get('batch'));
+console.log(list.get('name'));
+list.set('name','adil')
+console.log(list.get('name'));
+list.set('phone',8968776)
+list.display()
+console.log(list.remove('phone'));
