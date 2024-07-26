@@ -2,8 +2,8 @@
 
 function findDuplicate(arr) {
 
-    let hashTable={}
-    let duplicate=[]
+    let hashTable = {}
+    let duplicate = []
 
     for(let i=0;i<arr.length;i++) {
 

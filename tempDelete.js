@@ -1,80 +1,47 @@
-class HashTable{
-    constructor(size = 50){
+function findDuplicate(arr) {
+    let hashTable={}; // Create an empty object to store the counts of each value
+    let duplicate=[]; // Array to store the duplicate values
 
-        this.table = new Array(size)
-        this.size  = size
+    // Populate the hash table with counts of each value
+    for(let i=0;i<arr.length;i++) {
+        if(hashTable[arr[i]]!==undefined) {
+            hashTable[arr[i]]++;
+        } else {
+            hashTable[arr[i]]=1;
+        }
     }
 
-    hash(key){
+    let maxCount=0; // Variable to store the maximum count of duplicates
+    let minCount=Infinity; // Variable to store the minimum count of duplicates
+    let maxValue; // Variable to store the value with the most duplicates
+    let minValue; // Variable to store the value with the least duplicates (but more than 1)
 
-        let hash = 0
+    // Iterate through the hash table to find duplicates and their counts
+    for(let key in hashTable) {
+        if(hashTable[key]>1) {
+            duplicate.push(parseInt(key)); // Add duplicates to the array
 
-        for(let str of key){
-            hash += str.charCodeAt(0)
-        }
+            console.log(key);
+            // Update the value with the most duplicates
+            if(hashTable[key]>maxCount) {
+                maxCount=hashTable[key];
+                maxValue=parseInt(key);
+            }
 
-        return hash%this.size;
-    }
-
-    set(key,value){
-
-        const index = this.hash(key)
-
-        if (!this.table[index]) {
-            this.table[index] = []
-        }
-
-        for(let i=0;i<this.table[index];i++){
-
-            if (this.table[index][i][0] === key) {
-
-                this.table[index][i][1] = value;
-                return;
+            // Update the value with the least duplicates (but more than 1)
+            if(hashTable[key]<minCount) {
+                minCount=hashTable[key];
+                minValue=parseInt(key);
             }
         }
-
-        this.table[index].push([key,value])
     }
 
-    get(key){
+    console.log(`Value with most duplicates: ${maxValue}, Count: ${maxCount}`);
+    console.log(`Value with least duplicates: ${minValue}, Count: ${minCount}`);
 
-        const index = this.hash(key)
-        const bucket = this.table[index]
-
-        if (bucket) {
-            for(let [k,v] of bucket){
-                if (k === key) {
-                    return v;
-                }
-            }
-        }
-
-        return 'not found'
-    }
-
-    remove(key){
-
-        const index = this.hash(key)
-        const bucket = this.table[index]
-
-        if (bucket) {
-            
-            for(let i=0;i<bucket.length;i++){
-                if (bucket[i][0] === key) {
-                    bucket.splice(i,1)
-                    return true
-                }
-            }
-        }
-
-        return false
-
-    }
+    return duplicate;
 }
 
-const list = new HashTable()
+let arr=[1,2,2,3,3,4,3,4,5,2,3,6,7,8,9,1];
 
-list.set('name','shamnad')
-list.set('batch','bck183')
-
-console.log(list.get('batch'));
+console.log(findDuplicate(arr));
