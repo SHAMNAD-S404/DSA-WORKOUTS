@@ -51,8 +51,8 @@
             this.last = null
         }
 
-        return value;
         this.length--;
+        return value;
     }
 
     peek(){

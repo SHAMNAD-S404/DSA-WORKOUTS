@@ -2,21 +2,22 @@
 
 function mergeSort(array){
 
-    if(array.length <= 1 ) return array
+  if(array.length <= 1) return array
 
-    const mid   = Math.floor(array.length/2)
-    const left  = array.slice(0,mid)
-    const right = array.slice(mid)
+  let mid = Math.floor(array.length/2)
+  let left = array.slice(0,mid)
+  let right = array.slice(mid)
 
-    const leftArr  = mergeSort(left)
-    const rightArr = mergeSort(right) 
+  let leftArray = mergeSort(left)
+  let rightArray = mergeSort(right)
 
-    return merge(leftArr,rightArr)
+  return merge(leftArray,rightArray)
+
 }
 
 function merge(left,right){
 
-    const result = []
+    let result= []
 
     while(left.length && right.length){
 

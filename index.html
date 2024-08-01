@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hello world</h1>
+
+
+    <script>
+        //this will call when the html page is fully loaded automatically
+        document.addEventListener('DOMContentLoaded',async()=>{  // here used async function use await  
+
+
+                const response = await fetch('/about',{
+
+                    method : 'POST',
+                    headers :{'Content-Type':'application/json' },
+                    body:JSON.stringify({
+
+                        //here we sending data from front end to backend
+                    })
+                    
+
+                })
+
+
+                //here waiting for the response from the backend to front end
+
+                const data = await response.json()
+
+                //response and data from the backend will be inside this data variable
+
+
+
+
+        })
+
+
+
+    </script>
+
+    
+
+
+</body>
+</html>
