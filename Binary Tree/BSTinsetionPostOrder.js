@@ -1,19 +1,22 @@
-class Node{
+//* POST ORDER TRAVERSAL IN BINARY TREE SEARCH
+
+class TreeNode{
     constructor(value){
+
         this.value = value
         this.left  = null
         this.right = null 
     }
 }
 
-class shamnad{
+class BinarySearchTree{
     constructor(){
         this.root = null
     }
 
     insert(value){
 
-        const newNode = new Node(value)
+        const newNode = new TreeNode(value)
 
         if (this.root === null) {
             this.root = newNode
@@ -24,13 +27,14 @@ class shamnad{
 
     insertNode(rootNode,newNode){
 
-        if ( newNode.value < rootNode.value) {
+        if (newNode.value < rootNode.value) {
             
             if (rootNode.left === null) {
                 rootNode.left = newNode
             } else {
                 this.insertNode(rootNode.left,newNode)
             }
+
         } else {
 
             if (rootNode.right === null) {
@@ -42,32 +46,37 @@ class shamnad{
         }
     }
 
-    levelOrder(){
 
-        if(this.root === null) return []
+    postOrderTraversal(rootNode,result =[]){
 
-        let result = []
-        let queue = [this.root]
-
-        while(queue.length > 0){
-
-            const node = queue.shift()
-            result.push(node.value)
-
-            if(node.left !== null)  queue.push(node.left)
-            if(node.right !== null) queue.push(node.right)
+        if (rootNode !== null) {
+            
+            this.postOrderTraversal(rootNode.left,result)
+            this.postOrderTraversal(rootNode.right,result)
+            result.push(rootNode.value)
         }
 
         return result
     }
+
+    print(){
+
+        const result = this.postOrderTraversal(this.root)
+        console.log(result);
+    }
 }
 
-const hi = new shamnad()
+    const list = new BinarySearchTree()
+    
+    list.insert(6)
+    list.insert(8)
+    list.insert(7)
+    list.insert(4)
+    list.insert(5)
+    list.insert(3)
+    list.insert(10)
+    list.insert(11)
 
-hi.insert(10)
-hi.insert(11)
-hi.insert(15)
-hi.insert(1)
-hi.insert(6)
+    console.log(list.root);
 
-console.log(hi.levelOrder());
+    list.print()
