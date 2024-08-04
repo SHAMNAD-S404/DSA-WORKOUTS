@@ -1,20 +1,16 @@
+function kthSmallest(root,k){
+    const result = []
 
-function findHeight(root){
+    const inOrder = (node) => {
 
-    if(root === null) return -1
+        if(node === null || result.length >= k) return
 
-    const leftHeight  = this.findHeight(root.left)
-    const rightHeight = this.findHeight(root.right)
+        inOrder(node.left)
+        result.push(node.value)
+        inOrder(node.right)
+    }
 
-    return Math.max(leftHeight,rightHeight) +1;
-}
+    inOrder(root)
 
-function findHeight(root){
-
-    if(root === null) return -1
-
-    const leftHeight = this.findHeight(root.left)
-    const rightHeight= this.findHeight(root.right)
-
-    return Math.max(leftHeight,rightHeight) +1;
+    return result[k-1]
 }
