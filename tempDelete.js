@@ -120,6 +120,30 @@ class Tree{
     }
  }
 
+ findClosest(root,target) {
+
+    if(root === null) return null
+
+    let closest = root.value
+
+    while(root !== null){
+
+        if(Math.abs(target - closest) > Math.abs(target - root.value)){
+            closest = root.value
+        }
+
+        if (target < root.value) {
+            root = root.left
+        } else if(target > root.value) {
+            root = root.right
+        }else{
+            break;
+        }
+    }
+
+    return closest;
+ }
+
 
     
 }
@@ -142,6 +166,8 @@ list.delete(list.root,22)
 console.log(list.kthElement(list.root,5));
 
 console.log(list.search(list.root,88));
+
+console.log(list.findClosest(list.root,80));
 
 
 
