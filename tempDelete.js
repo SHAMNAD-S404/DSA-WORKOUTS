@@ -1,173 +1,118 @@
+ class MinHeap{
+     constructor(){
+        this.heap = []
+     }
 
-class Node {
-    constructor (value){
-        this.value = value
-        this.left = null
-        this.right = null
-    }
-}
+     getParentIndex(index){
+        return Math.floor((index - 1)/2)
+     }
 
-class Tree{
-    constructor(){
-        this.root = null
-    }
+     getLeftChild(index){
+        return 2*index+1
+     }
 
-    insert(value){
+     getRightIndex(index){
+        return 2*index+2
+     }
 
-        const node = new Node(value)
+     insert(value){
 
-        if (this.root === null) {
-            this.root = node
-        } else {
-            this.insertNode(this.root,node)
-        }
-    }
+        this.heap.push(value)
+        this.heapifyUp()
+     }
 
-    insertNode(root,node){
+     heapifyUp(){
 
-        if (node.value < root.value) {
-            if (root.left === null) {
-                root.left = node
-            } else {
-                this.insertNode(root.left,node)
+        let index = this.heap.length-1
+
+        while(index > 0){
+
+            let parent = this.getParentIndex(index)
+
+            if(this.heap[parent] > this.heap[index]){
+
+                [this.heap[parent],this.heap[index]] = [this.heap[index],this.heap[parent]]
+
+                index = parent
+            }else{
+                break;
             }
-        } else {
-            if (root.right === null) {
-                root.right = node
-            } else {
-                this.insertNode(root.right,node)
+        }
+     }
+
+
+     remove(){
+
+        if(this.heap.length === 0) return null
+
+        const min = this.heap[0]
+        const end = this.heap.pop()
+
+        if(this.heap.length > 0){
+            this.heap[0] = end
+            this.heapifyDown()
+        }
+
+        return min
+     }
+
+     heapifyDown(){
+
+        let index = 0
+        const length = this.heap.length
+        let newRoot = this.heap[0]
+
+        while (true) {
+            
+            const leftChildIndex = this.getLeftChild(index)
+            const rightChildIndex = this.getRightIndex(index)
+            let leftChild,rightChild
+            let swap = null
+
+            if (leftChildIndex < length) {
+
+                leftChild = this.heap[leftChildIndex]
+
+                if (leftChild < newRoot) {
+                    swap = leftChildIndex
+                }
+                
             }
+
+            if (rightChildIndex < length) {
+                
+                rightChild = this.heap[rightChildIndex]
+
+                if ((swap === null && rightChild < newRoot) || (swap !== null && rightChild < leftChild)) {
+                    swap = rightChildIndex
+                }
+            }
+
+            if(swap === null) break
+
+            this.heap[index] = this.heap[swap]
+            this.heap[swap]  = newRoot
+            index = swap; 
         }
-    }
-
-    findMin(root){
-
-        while( root !== null){
-            root = root.left
-        }
-
-        return root;
-    }
-
-
-    delete(root,value){
-
-        if(root === null) return null
-        
-        if (value < root.value) {
-            root.left  = this.delete(root.left,value)
-        } else if(value > root.value) {
-            root.right = this.delete(root.right,value)
-        }else{
-
-            if(root.left  === null) return root.right;
-            if(root.right === null) return root.left;
-
-            const min = this.findMin(root.right)
-
-            root.value = min.value
-            root.right = this.delete(root.right,min.value)
-        }
-
-        return root;
-    }
-
-    inOrder(root,result = []){
-
-        if(root !== null){
-
-            this.inOrder(root.left,result)
-            result.push(root.value)
-            this.inOrder(root.right,result)
-        }
-        return result;
-    }
-
-    findHeight(root){
-
-        if(root === null) return -1
-
-        const leftHeight = this.findHeight(root.left)
-    }
-
-   kthElement(root,k){
-
-    const result = []
-
-    const order = (root) => {
-
-        if(root === null || result.length >= k) return
-
-        order(root.left)
-        result.push(root.value)
-        order(root.right)
-    }
-
-    order(root)
-    return result[k-1]
-   }
-
- search(root,value){
-
-    if(root === null) return false
-
-    if(root.value === value) return true
-
-    if(value < root.value){
-        return this.search(root.left,value)
-    }else{
-        return this.search(root.right,value)
-    }
+     }
  }
 
- findClosest(root,target) {
+const heap=new MinHeap()
 
-    if(root === null) return null
+heap.insert(7)
+heap.insert(9)
+heap.insert(10)
+heap.insert(4)
+heap.insert(3)
+heap.insert(15)
 
-    let closest = root.value
+console.log(heap.heap);
 
-    while(root !== null){
+heap.insert(2)
+heap.insert(10)
 
-        if(Math.abs(target - closest) > Math.abs(target - root.value)){
-            closest = root.value
-        }
+console.log(heap.heap);
 
-        if (target < root.value) {
-            root = root.left
-        } else if(target > root.value) {
-            root = root.right
-        }else{
-            break;
-        }
-    }
+console.log(heap.remove());
 
-    return closest;
- }
-
-
-    
-}
-
-const list = new Tree()
-
-list.insert(11)
-list.insert(22)
-list.insert(3)
-list.insert(5)
-list.insert(88)
-list.insert(7)
-list.insert(8)
-list.insert(9)
-
-console.log(list.inOrder(list.root));
-
-list.delete(list.root,22)
-
-console.log(list.kthElement(list.root,5));
-
-console.log(list.search(list.root,88));
-
-console.log(list.findClosest(list.root,80));
-
-
-
+console.log(heap.heap);
