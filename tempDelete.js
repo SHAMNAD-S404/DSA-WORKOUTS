@@ -1,118 +1,51 @@
- class MinHeap{
-     constructor(){
-        this.heap = []
-     }
 
-     getParentIndex(index){
-        return Math.floor((index - 1)/2)
-     }
+function swap(arr,index,root){
+    [arr[index],arr[root]] = [arr[root],arr[index]]
+}
 
-     getLeftChild(index){
-        return 2*index+1
-     }
+function heapify(arr,length,index){
 
-     getRightIndex(index){
-        return 2*index+2
-     }
-
-     insert(value){
-
-        this.heap.push(value)
-        this.heapifyUp()
-     }
-
-     heapifyUp(){
-
-        let index = this.heap.length-1
-
-        while(index > 0){
-
-            let parent = this.getParentIndex(index)
-
-            if(this.heap[parent] > this.heap[index]){
-
-                [this.heap[parent],this.heap[index]] = [this.heap[index],this.heap[parent]]
-
-                index = parent
-            }else{
-                break;
-            }
-        }
-     }
+    let root = index
+    let leftIndex  = 2*index+1
+    let rightIndex = 2*index+2
 
 
-     remove(){
+    if (leftIndex < length && arr[leftIndex] > arr[root]) {
+        root = leftIndex
+    }
 
-        if(this.heap.length === 0) return null
+    if (rightIndex < length && arr[rightIndex] > arr[root]) {
+        root = rightIndex
+    }
 
-        const min = this.heap[0]
-        const end = this.heap.pop()
+    if (root !== index) {
+        swap(arr,index,root)
+        heapify(arr,length.root)
+    }
+}
 
-        if(this.heap.length > 0){
-            this.heap[0] = end
-            this.heapifyDown()
-        }
 
-        return min
-     }
 
-     heapifyDown(){
+function heapSort(arr){
 
-        let index = 0
-        const length = this.heap.length
-        let newRoot = this.heap[0]
+    const length = arr.length-1;
 
-        while (true) {
-            
-            const leftChildIndex = this.getLeftChild(index)
-            const rightChildIndex = this.getRightIndex(index)
-            let leftChild,rightChild
-            let swap = null
+    for(let index = Math.floor(length/2);index>=0;index--){
+        heapify(arr,length,index)
+    }
 
-            if (leftChildIndex < length) {
+    for(let index = length; index >0;index --){
 
-                leftChild = this.heap[leftChildIndex]
+        swap(arr,0,index)
+        heapify(arr,index,0)
+    }
 
-                if (leftChild < newRoot) {
-                    swap = leftChildIndex
-                }
-                
-            }
 
-            if (rightChildIndex < length) {
-                
-                rightChild = this.heap[rightChildIndex]
 
-                if ((swap === null && rightChild < newRoot) || (swap !== null && rightChild < leftChild)) {
-                    swap = rightChildIndex
-                }
-            }
+}
 
-            if(swap === null) break
+const arr=[22,77,88,55,33,11,44,55,99]
 
-            this.heap[index] = this.heap[swap]
-            this.heap[swap]  = newRoot
-            index = swap; 
-        }
-     }
- }
+heapSort(arr)
 
-const heap=new MinHeap()
-
-heap.insert(7)
-heap.insert(9)
-heap.insert(10)
-heap.insert(4)
-heap.insert(3)
-heap.insert(15)
-
-console.log(heap.heap);
-
-heap.insert(2)
-heap.insert(10)
-
-console.log(heap.heap);
-
-console.log(heap.remove());
-
-console.log(heap.heap);
+console.log(arr);
