@@ -77,3 +77,4 @@ bstTree.insert(10)
 bstTree.insert(11)
 bstTree.insert(8)
 bstTree.print()
+console.log(bstTree.inOrderTraversal(bstTree.root));

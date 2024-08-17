@@ -48,7 +48,7 @@ class BinarySearchTree{
         }
     }
 
-    findHeight(root){
+    findHeight(root) {
 
         if(root === null) return -1
 
