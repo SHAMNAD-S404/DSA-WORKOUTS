@@ -85,7 +85,7 @@ class MaxHeap{
                 
                 rightChild = this.heap[rightChildIndex]
 
-                if ((swap === null && rightChild > newRoot) || (swap !== null && rightChild > newRoot)) {
+                if ((swap === null && rightChild > newRoot) || (swap !== null && rightChild > leftChild)) {
                     
                     swap = rightChildIndex
                 }
