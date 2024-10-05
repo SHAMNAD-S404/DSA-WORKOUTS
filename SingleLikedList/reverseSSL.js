@@ -36,7 +36,7 @@ class LinkedList{
             let next     = current.next
             current.next = previous
             previous     = current
-            current      = next 
+            current      = next     
         }
         this.head = previous
     }

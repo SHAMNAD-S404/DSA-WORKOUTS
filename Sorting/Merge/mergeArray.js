@@ -21,4 +21,4 @@ function merge(left,right) {
 const arr1=[1,3,5]
 const arr2=[2,4,6]
 
-console.log(merge(arr1,arr2));
+// console.log(merge(arr1,arr2));
